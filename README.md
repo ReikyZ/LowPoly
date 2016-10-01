@@ -14,6 +14,7 @@ with high performance, render picture within seconds
 
 }
 
+
 static Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
