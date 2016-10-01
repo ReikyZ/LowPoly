@@ -9,6 +9,7 @@ import android.support.v8.renderscript.Allocation;
 import android.support.v8.renderscript.Int2;
 import android.support.v8.renderscript.RenderScript;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,20 +36,19 @@ public class LowPoly {
     private static Int2[] points = new Int2[10000];
     private static List<Int2> pointz = new ArrayList<Int2>();
 
-    public static Bitmap createLowPolyBmp(Context context, Bitmap bitmapIn, int accuracy) {
+
+    public static void createLowPolyBmp(Context context, Bitmap bitmapIn, int accuracy) {
         mBitmapIn = bitmapIn;
 
         Bitmap bitmapOut = Bitmap.createBitmap(bitmapIn.getWidth(), bitmapIn.getHeight(),
                 bitmapIn.getConfig());
         width = bitmapIn.getWidth();
         height = bitmapIn.getHeight();
-        Log.e(TAG, "Width==" + width + "==Height==" + height + "==accuracy==" + accuracy + Utils.getLineNumber(new Exception()));
+        Log.e(TAG, "Width==" + width + "==Height==" + height + "==accuracy==" + accuracy);
         createLowPolyScript(context, accuracy, bitmapIn, bitmapOut);
 
-        Log.e(TAG, "Start GRAYED" + Utils.getLineNumber(new Exception()));
+        Log.e(TAG, "Start GRAYED");
         scriptLowPoly.invoke_process(1);
-
-        return bitmapOut;
     }
 
     private static void createLowPolyScript(Context context, int accuracy, final Bitmap bitmapIn, final Bitmap bitmapOut) {
@@ -83,7 +83,7 @@ public class LowPoly {
                 if (mID == 101) {
                     Log.e(TAG, "GRAYED finish");
 //                    allocationGrayed.copyTo(bitmapOut);
-                    Log.e(TAG, "Start SOBEL" + Utils.getLineNumber(new Exception()));
+                    Log.e(TAG, "Start SOBEL");
                     scriptLowPoly.invoke_process(2);
                     return;
                 }

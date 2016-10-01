@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ivOut = (ImageView) findViewById(R.id.iv_out);
 
         bitmapOriginal = BitmapUtils.loadBitmapRes(this, R.mipmap.umbrela);
-        Log.e(TAG, Utils.getLineNumber(new Exception()));
 
         time = System.currentTimeMillis();
         ivOut.setBackgroundResource(R.mipmap.umbrela);
-        ivOut.setImageBitmap(LowPoly.createLowPolyBmp(this, bitmapOriginal, acc));
+
+        LowPoly.createLowPolyBmp(this, bitmapOriginal, acc);
 
         ivOut.setOnClickListener(this);
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             switch (msg.what) {
                 case 0:
                     ivOut.setImageBitmap(LowPoly.bmpRendered);
-                    Log.e(TAG, "Render FINISH in==" + (System.currentTimeMillis() - time) + " ms" + Utils.getLineNumber(new Exception()));
+                    Log.e(TAG, "Render FINISH in==" + (System.currentTimeMillis() - time) + " ms" );
                     break;
             }
         }
@@ -52,7 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         time = System.currentTimeMillis();
         Log.e(TAG, "START Render by Accuracy=== " + acc);
-        ivOut.setImageBitmap(LowPoly.createLowPolyBmp(this, bitmapOriginal, acc--));
+//        ivOut.setImageBitmap(LowPoly.createLowPolyBmp(this, bitmapOriginal, acc--));
+        LowPoly.createLowPolyBmp(this, bitmapOriginal, acc--);
         if (acc < 1) acc = 10;
     }
 }
