@@ -133,8 +133,8 @@ public class LowPoly {
 
                     Canvas canvas = new Canvas(bmpRendered);
                     Paint paint = new Paint();
-                    paint.setAntiAlias(false);
-                    paint.setStyle(Paint.Style.FILL_AND_STROKE);
+                    paint.setAntiAlias(true);
+                    paint.setStyle(Paint.Style.FILL);
 
                     float x1, x2, x3, y1, y2, y3, cx, cy;
                     for (int i = 0; i < tris.size(); i += 3) {
