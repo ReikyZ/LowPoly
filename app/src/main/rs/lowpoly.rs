@@ -50,8 +50,6 @@ void root(const uchar4 *v_in, uchar4 *v_out, uint32_t x, uint32_t y){
 
         float G = sqrt(gx*gx+gy*gy);
 
-        //float3 mono = {G,G,G};
-
         rand = rsRand(1.0f) * 10 * accuracy;
         if(G > 0.1f && rand == 1){
             setColor(x,y);
@@ -62,10 +60,8 @@ void root(const uchar4 *v_in, uchar4 *v_out, uint32_t x, uint32_t y){
            float3 black = { 0.0f,0.0f,0.0f};
             *v_out = rsPackColorTo8888(black);
         }
-
     }
 }
-
 
 void process(int stat){
     status = stat;
@@ -82,9 +78,8 @@ void process(int stat){
     }
 }
 
-
 void send_points(){
-// to client
+    // to client
     int group = (count-1)/625+1;
     rsDebug("points group==",group);
     rsDebug("points size==",count);

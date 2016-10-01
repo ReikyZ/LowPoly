@@ -12,10 +12,12 @@ import android.widget.ImageView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     final static String TAG = "==MainActivity==";
 
-    static ImageView ivOriginal, ivOut;
+    static ImageView ivOut;
     Bitmap bitmapOriginal;
 
-    int acc = 10;
+
+    final static int RENDERED_FLAG = 0xed;
+    int accuracy = 10;
     static long time = 0;
 
     @Override
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         time = System.currentTimeMillis();
         ivOut.setBackgroundResource(R.mipmap.umbrela);
 
-        LowPoly.createLowPolyBmp(this, bitmapOriginal, acc);
+        LowPoly.createLowPoly(this, bitmapOriginal, accuracy, RENDERED_FLAG);
 
         ivOut.setOnClickListener(this);
 
@@ -40,9 +42,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case 0:
+                case RENDERED_FLAG:
                     ivOut.setImageBitmap(LowPoly.bmpRendered);
-                    Log.e(TAG, "Render FINISH in==" + (System.currentTimeMillis() - time) + " ms" );
+                    Log.e(TAG, "Render FINISH in==" + (System.currentTimeMillis() - time) + " ms");
+                    System.gc();
                     break;
             }
         }
@@ -51,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         time = System.currentTimeMillis();
-        Log.e(TAG, "START Render by Accuracy=== " + acc);
-//        ivOut.setImageBitmap(LowPoly.createLowPolyBmp(this, bitmapOriginal, acc--));
-        LowPoly.createLowPolyBmp(this, bitmapOriginal, acc--);
-        if (acc < 1) acc = 10;
+        Log.e(TAG, "START Render by Accuracy=== " + accuracy);
+//        ivOut.setImageBitmap(LowPoly.createLowPolyBmp(this, bitmapOriginal, accuracy--));
+        LowPoly.createLowPoly(this, bitmapOriginal, accuracy--, RENDERED_FLAG);
+        if (accuracy < 1) accuracy = 10;
     }
 }

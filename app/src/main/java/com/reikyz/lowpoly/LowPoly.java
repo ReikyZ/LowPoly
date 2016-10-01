@@ -35,10 +35,11 @@ public class LowPoly {
     private static int groupCount = 100;
     private static Int2[] points = new Int2[10000];
     private static List<Int2> pointz = new ArrayList<Int2>();
+    private static int RENDERED_FLAG;
 
-
-    public static void createLowPolyBmp(Context context, Bitmap bitmapIn, int accuracy) {
+    public static void createLowPoly(Context context, Bitmap bitmapIn, int accuracy, int flag) {
         mBitmapIn = bitmapIn;
+        RENDERED_FLAG = flag;
 
         Bitmap bitmapOut = Bitmap.createBitmap(bitmapIn.getWidth(), bitmapIn.getHeight(),
                 bitmapIn.getConfig());
@@ -160,7 +161,7 @@ public class LowPoly {
                     }
                     Log.e(TAG, "Canvas cost === " + (System.currentTimeMillis() - t) + " ms");
 
-                    MainActivity.mHandler.sendEmptyMessageAtTime(0, 0);
+                    MainActivity.mHandler.sendEmptyMessageAtTime(RENDERED_FLAG, 0);
 
                     System.gc();
                 } else {
